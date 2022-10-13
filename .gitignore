@@ -1,5 +1,5 @@
 .DS_STORE
 *.pyc
-venv/*
 .vscode/
 .env
+venv*
