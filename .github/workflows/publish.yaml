@@ -17,5 +17,4 @@ jobs:
     - name: Build the tg-subscription Docker image
       run: |
         docker build . --tag ghcr.io/richardokonicha/tg-subscription:latest
-        docker run ghcr.io/richardokonicha/tg-subscription:latest
         docker push ghcr.io/richardokonicha/tg-subscription:latest
