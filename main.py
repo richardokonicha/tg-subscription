@@ -54,14 +54,14 @@ def getMessage():
     json_string = request.get_data().decode('utf-8')
     update = telebot_types.Update.de_json(json_string)
     bot.process_new_updates([update])
-    return "! auto updated", 200
+    return "!", 200
 
 
 @server.route("/")
 def webhook():
     bot.remove_webhook()
     bot.set_webhook(url=f'{WEBHOOK_URL}/' + TOKEN)
-    return f'!hooked to {WEBHOOK_URL}', 200
+    return f'!hooked to auto updated {WEBHOOK_URL}', 200
 
 def run_web():
     if __name__ == "__main__":
