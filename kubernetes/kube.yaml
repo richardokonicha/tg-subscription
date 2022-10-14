@@ -30,6 +30,10 @@ spec:
         env:
         - name: WEBHOOK_URL
           value: "20.231.254.88"
+        - name: TOKEN
+          value: "5419896363:AAFp4xHdcR_qJdnoZZkZQQcs7j7cYLO-l6E"
+        - name: DEBUG
+          value: False
 
 ---
 apiVersion: v1
