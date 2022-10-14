@@ -1,38 +1,34 @@
-name: build_deploy_aks
-# on:
-#   push:
-#     paths:
-#       - "azure-vote/**"
+name: publish and deploy
 on: [push]
 
-# env:
-#   CLUSTER_NAME: CLUSTERNAME
-#   RESOURCE_GROUP: RESOURCEGROUP
-#   KEYVAULT: KVNAME
-#   GITHUB_OWNER: GUTHUBUSER
-#   REPO: FLUXREPO
+env:
+  CLUSTER_NAME: CLUSTER_NAME
+  RESOURCE_GROUP: RESOURCE_GROUP
+  GIT_AUTH_TOKEN: GIT_AUTH_TOKEN
  
-
 jobs:
+
+  publish-tg-subcription-image:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        run: |
+          echo $CR_PAT | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
+
+      - name: Build the tg-subscription Docker image
+        run: |
+          docker build . --tag ghcr.io/richardokonicha/tg-subscription:latest
+          docker push ghcr.io/richardokonicha/tg-subscription:latest
+
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code 
         uses: actions/checkout@v3
-
-      # - name: ACR build
-      #   id: build-push-acr
-      #   uses: azure/acr-build@v1
-      #   with:
-      #     service_principal: ${{ secrets.service_principal }}
-      #     service_principal_password: ${{ secrets.service_principal_password }}
-      #     tenant: ${{ secrets.tenant }}
-      #     registry: ${{ secrets.registry }}
-      #     repository: ${{ secrets.repository }}
-      #     image:  azure-vote-front
-      #     folder: azure-vote
-      #     branch: master
-      #     tag: ${{ github.sha }}
 
       - name: Azure login
         id: login
@@ -59,16 +55,3 @@ jobs:
           manifests: |
              ${{github.workspace}}/kubernetes/kube.yaml
           # images: ghcr.io/richardokonicha/tg-subscription:latest
-
-          
-          
-          # images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/azure-vote-front:${{ github.sha }}'
-          # pull: false
-
-        #    - uses: azure/k8s-deploy@v1
-        # with:
-        #   namespace: go-template
-        #   manifests: ${{ steps.bake.outputs.manifestsBundle }}
-        #   images: |
-        #     ghcr.io/gbaeke/go-template:${{ env.IMAGE_TAG }}   
-          #  ${{ github.action_path }}
