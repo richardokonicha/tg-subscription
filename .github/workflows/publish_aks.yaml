@@ -44,8 +44,8 @@ jobs:
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: '${{ secrets.resource_group }}' 
-          cluster-name: '${{ secrets.cluster_name }}'
+          resource-group: ${{ secrets.resource_group }}
+          cluster-name: ${{ secrets.cluster_name }}
 
       - name: Setup kubectl
         id: install-kubectl
@@ -57,8 +57,10 @@ jobs:
         with:
           namespace: 'default'
           manifests: |
-             kubernetes/kube.yaml
-          image: ghcr.io/richardokonicha/tg-subscription:latest
+             ${{github.workspace}}/kubernetes/kube.yaml
+          # images: ghcr.io/richardokonicha/tg-subscription:latest
+
+          
           
           # images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/azure-vote-front:${{ github.sha }}'
           # pull: false
