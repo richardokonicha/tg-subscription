@@ -54,7 +54,7 @@ def getMessage():
     json_string = request.get_data().decode('utf-8')
     update = telebot_types.Update.de_json(json_string)
     bot.process_new_updates([update])
-    return "!", 200
+    return "! auto updated", 200
 
 
 @server.route("/")
