@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tg-subscription
+spec:
+  replica: 1
+  selector:
+    matchLabel:
+      app: tg-subscription
+  template:
+    metadata:
+      label:
+        app: tg-subscription
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linus
+      
