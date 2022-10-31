@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tg-subscription
+  namespace: tg-subscription
 spec:
   replicas: 1
   selector:
@@ -17,6 +18,8 @@ spec:
       containers:
       - name: tg-subscription
         image: ghcr.io/richardokonicha/tg-subscription:latest
+        # image: reechee/tg-subscription:latest
+        imagePullPolicy: IfNotPresent # Never  # or IfNotPresent
         resources:
           requests:
             cpu: 100m
@@ -34,19 +37,3 @@ spec:
           value: "5419896363:AAFp4xHdcR_qJdnoZZkZQQcs7j7cYLO-l6E"
         - name: DEBUG
           value: "False"
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: tg-subscription
-spec:
-  type: LoadBalancer
-  selector:
-    app: tg-subscription
-  ports:
-    - name: name-of-service-port
-      protocol: TCP
-      port: 80
-      targetPort: tg-port
-

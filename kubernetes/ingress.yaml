@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tg-subscription
+  namespace: tg-subscription
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /  
+spec:
+  # tls:
+  # - hosts:
+  #   - fugoku.test
+  #   secretName: fugoku-tls-secret
+  ingressClassName: nginx
+  rules:
+  - host: fugoku.com
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: tg-subscription
+            port: 
+              number: 80
