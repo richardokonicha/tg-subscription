@@ -1,0 +1,11 @@
+version: '1'
+services:
+  tg-subscription:
+    container_name: tg-subscription
+    image: reechee/tg-subscription:latest
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./container:/work
+    ports:
+    - 5001:5001 
