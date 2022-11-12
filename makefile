@@ -39,3 +39,9 @@ execdocker:
 
 fwdsvc:
 	@kubectl port-forward -n tg-subscription svc/tg-subscription 5001:80
+
+dashboard-deploy:
+	@kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
+
+createtoken:
+	@kubectl -n kubernetes-dashboard create token admin-user
