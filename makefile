@@ -9,6 +9,10 @@ GRAY ?= \033[0;37m
 WHITE ?= \033[1;37m
 COFF ?= \033[0m
 
+run:
+	@echo -e "$(CYAN)Running main:$(COFF)"
+	@python main.py
+
 
 cluster:
 	@echo -e "$(CYAN)Create new cluster:$(COFF)"
