@@ -19,7 +19,7 @@ from tgbot.utils.database import Database
 # telebot
 from telebot import TeleBot, apihelper, types as telebot_types
 # config
-from tgbot.config import TOKEN, DEBUG, WEBHOOK_URL
+from tgbot.config import token, DEBUG, WEBHOOK_URL
 from flask import Flask, request
 
 
@@ -29,7 +29,7 @@ db = Database()
 apihelper.ENABLE_MIDDLEWARE = True
 
 # I recommend increasing num_threads
-bot = TeleBot(TOKEN, num_threads=5)
+bot = TeleBot(token, num_threads=5)
 server = Flask(__name__)
 
 
@@ -49,7 +49,7 @@ bot.add_custom_filter(AdminFilter())
 
 
 
-@server.route('/' + TOKEN, methods=['POST'])
+@server.route('/' + token, methods=['POST'])
 def getMessage():
     json_string = request.get_data().decode('utf-8')
     update = telebot_types.Update.de_json(json_string)
@@ -60,7 +60,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url=f'{WEBHOOK_URL}/' + TOKEN)
+    bot.set_webhook(url=f'{WEBHOOK_URL}/' + token)
     return f'!hooked to auto updated {WEBHOOK_URL}', 200
 
 def run_web():

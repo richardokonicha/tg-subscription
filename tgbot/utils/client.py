@@ -7,7 +7,7 @@ from telethon.sessions import StringSession
 from dotenv import load_dotenv
 import os
 import datetime
-from config import api_id, api_hash, sessionString, environment, wordpress_url
+from ..config import api_id, api_hash, sessionString, environment, wordpress_url
 
 # bot_client = TelegramClient('anon', api_id, api_hash)
 bot_client = TelegramClient(StringSession(sessionString), api_id, api_hash)

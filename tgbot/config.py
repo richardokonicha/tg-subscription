@@ -17,7 +17,7 @@ logging.basicConfig()
 logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 load_dotenv()
 
-TOKEN = os.getenv("TOKEN")
+# TOKEN = os.getenv("TOKEN")
 DEBUG = (os.getenv("DEBUG") == "True")
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 
