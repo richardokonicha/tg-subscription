@@ -5,14 +5,15 @@ from mongoengine import connect
 from dotenv import load_dotenv
 import telebot
 import os
-# from telethon_client import bot_client, main, kick
+import certifi
+from ..utils.client import bot_client, main, kick
 # from config import scheduler, bot, wordpress_url, environment
 
 load_dotenv()
 
 db_host = os.getenv('db_host')
 
-connect('monitor_db', host=db_host)
+connect('monitor_db', host=db_host, ssl=True, tlsCAFile=certifi.where())
 
 
 class Admin(Enum):

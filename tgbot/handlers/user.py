@@ -1,7 +1,7 @@
 from telebot import TeleBot
 from telebot.types import Message
 # from config import bot, wcapi, scheduler, channel_link, environment
-from ..config import bot
+from ..config import bot, wcapi, scheduler, channel_link, environment
 import re
 import telebot
 # from database import BstPage
@@ -28,8 +28,8 @@ def get_order(load):
     return data
 
 
-def get_user(user_id):
-    bst_user = co.User.objects(userid=userid).first()
+def get_user(userid,message):
+    bst_user = db.User.objects(userid=userid).first()
     if bst_user == None:
         username = message.from_user.username
         # create new user
@@ -41,6 +41,7 @@ def get_user(user_id):
     else:
         username = bst_user.username = message.from_user.username
         bst_user.save()
+    return bst_user
 
 
 
@@ -49,7 +50,7 @@ def any_user(message: Message, bot):
 
     userid = message.from_user.id
     bot.send_chat_action(userid, action='typing')
-    user = get_user(userid)
+    bst_user = get_user(userid, message)
 
 
     text = message.text
